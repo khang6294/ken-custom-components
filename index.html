@@ -4,8 +4,33 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="./tooltip.js"></script>
+    <script src="./confirm-link.js"></script>
 </head>
+
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    html{
+        --color-primary: #a4e6fc;
+        font-family: sans-serif;
+    }
+    
+    /* .highlight{
+        background-color: orange
+    } */
+    
+</style>
 <body>
-    <kn-tooltip>Web component</kn-tooltip>
+    <p>
+    <kn-tooltip class="important">
+        <span>Web component</span>
+    </kn-tooltip>
+    are awesome
+    </p>
+    <kn-tooltip text="Override tooltip text">
+        <span>Tooltip component</span>
+    </kn-tooltip>
+    <a is="kn-confirm-link" href='https://google.com'>Google</a>
 </body>
 </html>
