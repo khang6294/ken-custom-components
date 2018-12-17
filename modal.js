@@ -1,6 +1,7 @@
 class Modal extends HTMLElement{
     constructor(){
         super();
+        this.isOpen = false;
         this.attachShadow({mode:'open'});
         this.shadowRoot.innerHTML = `
             <style>
@@ -39,7 +40,7 @@ class Modal extends HTMLElement{
                 header{
                     padding: 1rem;
                 }
-                header h1{
+                ::slotted(h1) {
                     font-size: 1.25rem;
                 }
 
@@ -59,36 +60,66 @@ class Modal extends HTMLElement{
             <div id="backdrop"></div>
             <div id="modal">
                 <header>
-                    <h1>Please confirm </h1>
+                    <slot name="title"></slot>
                 </header>
                 <section id="main">
                     <slot></slot>
                 </section>
                 <section id="actions">
-                    <button>Cancel</button>
-                    <button>Ok</button>
+                    <button id="cancel-btn">Cancel</button>
+                    <button id="confirm-btn">Ok</button>
                 </section>
             </div>
         `
+        const slots = this.shadowRoot.querySelectorAll('slot');
+        slots[1].addEventListener('slotchange',event => {
+            console.dir(slots[1].assignedNodes()) //access the content of slots
+        })
+
+        const backdrop = this.shadowRoot.querySelector('#backdrop');
+        const cancelButton = this.shadowRoot.querySelector('#cancel-btn')
+        const confirmButton = this.shadowRoot.querySelector('#confirm-btn')
+        cancelButton.addEventListener('click', this._cancel.bind(this))
+        confirmButton.addEventListener('click', this._confirm.bind(this))
+        backdrop.addEventListener('click',this._cancel.bind(this))
     }
 
-    // attributeChangedCallback(name,oldValue,newValue){
-    //     if(name === 'opened'){
-    //         if(this.hasAttribute('opened')){
-    //             this.shadowRoot.querySelector('#backdrop').style.opacity = 1;
-    //             this.shadowRoot.querySelector('#backdrop').style.pointerEvents = 'all';
-    //             this.shadowRoot.querySelector('#modal').style.opacity = 1;
-    //             this.shadowRoot.querySelector('#modal').style.pointerEvents = 'all';
-    //         }
-    //     }
-    // }
+    attributeChangedCallback(name,oldValue,newValue){
+        if(this.hasAttribute('opened')){
+            // this.shadowRoot.querySelector('#backdrop').style.opacity = 1;
+            // this.shadowRoot.querySelector('#backdrop').style.pointerEvents = 'all';
+            // this.shadowRoot.querySelector('#modal').style.opacity = 1;
+            // this.shadowRoot.querySelector('#modal').style.pointerEvents = 'all';
+            this.isOpen = true;
+        } else {
+            this.isOpen = false;
+        }
+    }
 
-    // static get observedAttributes(){
-    //     return ['opened']
-    // }
+    static get observedAttributes(){
+        return ['opened']
+    }
 
     open(){
         this.setAttribute('opened','');
+        this.isOpen = true;
+    }
+
+    hide(){
+        if(this.hasAttribute('opened')){
+            this.removeAttribute('opened')
+        }
+        this.isOpen = false;
+    }
+    _cancel(event){
+        this.hide();
+        const cancelEvent = new Event('cancel',{bubbles: true,composed: true}); //composed true will allow event leaving custom component
+        event.target.dispatchEvent(cancelEvent)
+    }
+    _confirm(){
+        this.hide();
+        const confirmEvent = new Event('confirm');
+        this.dispatchEvent(confirmEvent)
     }
 }
 

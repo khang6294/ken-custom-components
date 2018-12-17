@@ -38,6 +38,7 @@
     </kn-tooltip>
     <a is="kn-confirm-link" href='https://google.com'>Google</a>
     <kn-modal>
+        <h1 slot="title">Please confirm</h1>
         <p>You agree to pay ?</p>
     </kn-modal>
     <p>Please confirm your choice.</p>
@@ -45,8 +46,18 @@
     <script>
         const confirmButton = document.querySelector('button');
         const modal = document.querySelector('kn-modal');
+
+        modal.addEventListener('confirm', () => {
+            console.log('Confirmed');
+        })
+
+        modal.addEventListener('cancel', () => {
+            console.log('Cancelled...')
+        })
         confirmButton.addEventListener('click', () => {
-            modal.open();
+            if(!modal.isOpen){
+                modal.open();
+            }
         })
     </script>
 </body>
