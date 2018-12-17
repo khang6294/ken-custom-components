@@ -2,8 +2,10 @@ class ToolTip extends HTMLElement {
     constructor(){
         super();
         this._tooltipContainer;
+        this._tooltipVisible = false;
+        this._tooltipIcon;
         this._tooltipText = 'Default tooltip text.'
-        this.attachShadow({mode: 'open'})
+        this.attachShadow({mode: 'open'}) // activate shadow DOM
         this.shadowRoot.innerHTML =`
             <style>
                 div {
@@ -48,29 +50,52 @@ class ToolTip extends HTMLElement {
         if(this.hasAttribute('text')){
             this._tooltipText = this.getAttribute('text')
         }
-        const tooltipIcon = this.shadowRoot.querySelector('span')
-        tooltipIcon.addEventListener('mouseenter',this._showTooltip.bind(this));
-        tooltipIcon.addEventListener('mouseleave',this._hideTooltip.bind(this));
-        this.shadowRoot.appendChild(tooltipIcon);
+        this._tooltipIcon = this.shadowRoot.querySelector('span')
+        this._tooltipIcon.addEventListener('mouseenter',this._showTooltip.bind(this));
+        this._tooltipIcon.addEventListener('mouseleave',this._hideTooltip.bind(this));
         this.style.position = 'relative'; //style for custom component
+        this._render();
     }
 
     attributeChangeCallback(name,oldValue,newValue){
-
+        if(oldValue === newValue){
+            return;
+        }
+        if(name ==='text'){
+            this._tooltipText = newValue;
+        }
     }
 
     static get observedAttributes(){
         return ['text']
     }
 
+    disconnectedCallback(){
+        this._tooltipIcon.removeEventListener('mouseenter',this._showTooltip)
+        this._tooltipIcon.removeEventListener('mouseenter',this._hideTooltip)
+    }
+
+    _render(){
+        let tooltipContainer = this.shadowRoot.querySelector('div');
+        if(this._tooltipVisible){
+            tooltipContainer = document.createElement('div');
+            tooltipContainer.textContent = this._tooltipText
+            this.shadowRoot.appendChild(tooltipContainer);
+        } else {
+            if(tooltipContainer){
+                this.shadowRoot.removeChild(tooltipContainer);
+            }
+        }
+    }
+
     _showTooltip(){
-        this._tooltipContainer = document.createElement('div');
-        this._tooltipContainer.textContent = this._tooltipText
-        this.shadowRoot.appendChild(this._tooltipContainer);
+        this._tooltipVisible = true;
+        this._render();
     }
 
     _hideTooltip(){
-        this.shadowRoot.removeChild(this._tooltipContainer);
+        this._tooltipVisible = false;
+        this._render();
     }
 
 }
