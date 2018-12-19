@@ -12,58 +12,38 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+  interface KnSideDrawer {
+    'open': boolean;
+    'title': string;
   }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+  interface KnSideDrawerAttributes extends StencilHTMLAttributes {
+    'open'?: boolean;
+    'title'?: string;
   }
 }
 
 declare global {
   interface StencilElementInterfaces {
-    'MyComponent': Components.MyComponent;
+    'KnSideDrawer': Components.KnSideDrawer;
   }
 
   interface StencilIntrinsicElements {
-    'my-component': Components.MyComponentAttributes;
+    'kn-side-drawer': Components.KnSideDrawerAttributes;
   }
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLKnSideDrawerElement extends Components.KnSideDrawer, HTMLStencilElement {}
+  var HTMLKnSideDrawerElement: {
+    prototype: HTMLKnSideDrawerElement;
+    new (): HTMLKnSideDrawerElement;
   };
 
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement
+    'kn-side-drawer': HTMLKnSideDrawerElement
   }
 
   interface ElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'kn-side-drawer': HTMLKnSideDrawerElement;
   }
 
 

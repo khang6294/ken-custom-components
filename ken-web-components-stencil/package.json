@@ -16,7 +16,10 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "fs.promises": "^0.1.2"
+  },
   "devDependencies": {
     "@stencil/core": "~0.15.2"
   },

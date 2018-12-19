@@ -4,12 +4,44 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
+  <style>
+    body{
+      font-family: sans-serif;
+    }
+    .side-nav ul {
+      list-style: none;
+    }
+    .side-nav li{
+      margin: 1rem 0;
+    }
+    .side-nav a{
+      text-decoration: none;
+      color: black
+    }
+  </style>
   <script src="/build/mycomponent.js"></script>
 
 </head>
-<body>
+<body> 
+  <button id="side-drawer-btn">Open menu</button>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
-
+  <kn-side-drawer title="Main menu">
+    <nav class="side-nav">
+      <ul>
+        <li><a href="/">1st Link</a></li>
+        <li><a href="/">2nd Link</a></li>
+        <li><a href="/">3rd Link</a></li>
+      </ul>
+    </nav>
+  </kn-side-drawer>
+  <script>
+    const sideDrawerBtn = document.querySelector('#side-drawer-btn')
+    const sideDrawer = document.querySelector('kn-side-drawer')
+    sideDrawerBtn.addEventListener('click', () => {
+      if(!sideDrawer.open){
+        sideDrawer.open=true
+      }
+    })
+  </script>
 </body>
 </html>
