@@ -38,8 +38,8 @@
     const sideDrawerBtn = document.querySelector('#side-drawer-btn')
     const sideDrawer = document.querySelector('kn-side-drawer')
     sideDrawerBtn.addEventListener('click', () => {
-      if(!sideDrawer.open){
-        sideDrawer.open=true
+      if(!sideDrawer.opened){
+        sideDrawer.open()
       }
     })
   </script>

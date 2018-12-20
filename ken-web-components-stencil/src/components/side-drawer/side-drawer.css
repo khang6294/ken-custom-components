@@ -11,7 +11,7 @@ aside{
 
 }
 
-:host([open]) aside{
+:host([opened]) aside{
     left: 0;
 }
 
@@ -41,5 +41,33 @@ header button{
 header button:focus{
     outline: none;
 }
+#tabs{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    margin: 1rem 0;
+}
+#tabs button{
+    width: 30%;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid black;
+    font: inherit;
+    padding: 0.15rem 0;
+}
 
-.tabs
+#tabs button.active,
+#tabs button:hover,
+#tabs button:active
+{
+    background: black;
+    color: white;
+}
+
+#tabs button:focus{
+    outline: none
+}
+#contact-information{
+    padding: 0 1rem;
+}

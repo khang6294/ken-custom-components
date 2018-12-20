@@ -13,11 +13,12 @@ import '@stencil/core';
 export namespace Components {
 
   interface KnSideDrawer {
-    'open': boolean;
+    'open': () => void;
+    'opened': boolean;
     'title': string;
   }
   interface KnSideDrawerAttributes extends StencilHTMLAttributes {
-    'open'?: boolean;
+    'opened'?: boolean;
     'title'?: string;
   }
 }
