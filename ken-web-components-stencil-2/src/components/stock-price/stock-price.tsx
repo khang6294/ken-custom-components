@@ -72,6 +72,13 @@ export class StockPrice {
         })
     }
 
+    //Special method
+    hostData(){
+        return {
+            class: this.error ? `error`:``
+        }
+    }
+
 
     componentDidLoad(){
         if(this.stockSymbol){
