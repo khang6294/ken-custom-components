@@ -12,6 +12,9 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface KnStockFinder {}
+  interface KnStockFinderAttributes extends StencilHTMLAttributes {}
+
   interface KnStockPrice {
     'stockSymbol': string;
   }
@@ -22,13 +25,21 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'KnStockFinder': Components.KnStockFinder;
     'KnStockPrice': Components.KnStockPrice;
   }
 
   interface StencilIntrinsicElements {
+    'kn-stock-finder': Components.KnStockFinderAttributes;
     'kn-stock-price': Components.KnStockPriceAttributes;
   }
 
+
+  interface HTMLKnStockFinderElement extends Components.KnStockFinder, HTMLStencilElement {}
+  var HTMLKnStockFinderElement: {
+    prototype: HTMLKnStockFinderElement;
+    new (): HTMLKnStockFinderElement;
+  };
 
   interface HTMLKnStockPriceElement extends Components.KnStockPrice, HTMLStencilElement {}
   var HTMLKnStockPriceElement: {
@@ -37,10 +48,12 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'kn-stock-finder': HTMLKnStockFinderElement
     'kn-stock-price': HTMLKnStockPriceElement
   }
 
   interface ElementTagNameMap {
+    'kn-stock-finder': HTMLKnStockFinderElement;
     'kn-stock-price': HTMLKnStockPriceElement;
   }
 
