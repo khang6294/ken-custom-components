@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, Watch } from "@stencil/core";
+import { Component, Element, Prop, State, Watch,Listen } from "@stencil/core";
 import { AV_API_KEY } from '../../global/global';
 @Component({
     tag: 'kn-stock-price',
@@ -22,7 +22,15 @@ export class StockPrice {
     stockSymbolChanged(newValue: string, oldValue: string){
         if(newValue !== oldValue){
             this.stockUserInput = newValue;
+            this.stockInputValid = true
             this.fetchStockPrice(newValue);
+        }
+    }
+
+    @Listen('body:knSymbolSelected')
+    onStockSymbolSelected(event:CustomEvent){
+        if(event.detail  && event.detail !== this.stockSymbol){
+            this.stockSymbol = event.detail
         }
     }
     
@@ -60,6 +68,7 @@ export class StockPrice {
         })
         .catch(err => {
             this.error = err.message
+            this.fetchedPrice = null
         })
     }
 
