@@ -13,7 +13,9 @@ import '@stencil/core';
 export namespace Components {
 
   interface KnStockFinder {}
-  interface KnStockFinderAttributes extends StencilHTMLAttributes {}
+  interface KnStockFinderAttributes extends StencilHTMLAttributes {
+    'onKnSymbolSelected'?: (event: CustomEvent<string>) => void;
+  }
 
   interface KnStockPrice {
     'stockSymbol': string;
