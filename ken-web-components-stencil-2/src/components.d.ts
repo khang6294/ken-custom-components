@@ -12,8 +12,12 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface KnStockPrice {}
-  interface KnStockPriceAttributes extends StencilHTMLAttributes {}
+  interface KnStockPrice {
+    'stockSymbol': string;
+  }
+  interface KnStockPriceAttributes extends StencilHTMLAttributes {
+    'stockSymbol'?: string;
+  }
 }
 
 declare global {
