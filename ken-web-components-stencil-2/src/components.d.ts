@@ -12,6 +12,9 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface KnLoading {}
+  interface KnLoadingAttributes extends StencilHTMLAttributes {}
+
   interface KnStockFinder {}
   interface KnStockFinderAttributes extends StencilHTMLAttributes {
     'onKnSymbolSelected'?: (event: CustomEvent<string>) => void;
@@ -27,15 +30,23 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'KnLoading': Components.KnLoading;
     'KnStockFinder': Components.KnStockFinder;
     'KnStockPrice': Components.KnStockPrice;
   }
 
   interface StencilIntrinsicElements {
+    'kn-loading': Components.KnLoadingAttributes;
     'kn-stock-finder': Components.KnStockFinderAttributes;
     'kn-stock-price': Components.KnStockPriceAttributes;
   }
 
+
+  interface HTMLKnLoadingElement extends Components.KnLoading, HTMLStencilElement {}
+  var HTMLKnLoadingElement: {
+    prototype: HTMLKnLoadingElement;
+    new (): HTMLKnLoadingElement;
+  };
 
   interface HTMLKnStockFinderElement extends Components.KnStockFinder, HTMLStencilElement {}
   var HTMLKnStockFinderElement: {
@@ -50,11 +61,13 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'kn-loading': HTMLKnLoadingElement
     'kn-stock-finder': HTMLKnStockFinderElement
     'kn-stock-price': HTMLKnStockPriceElement
   }
 
   interface ElementTagNameMap {
+    'kn-loading': HTMLKnLoadingElement;
     'kn-stock-finder': HTMLKnStockFinderElement;
     'kn-stock-price': HTMLKnStockPriceElement;
   }
